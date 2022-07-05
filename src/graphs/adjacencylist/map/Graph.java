@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+/**
+ * Represents a graph using a Map of adjacency list.
+ */
 class Graph {
     Map<Vertex, List<Vertex>> adjVertices = new HashMap<>();
 
@@ -22,6 +26,11 @@ class Graph {
 
     @Override
     public String toString() {
-        return "Graph [adjVertices=" + adjVertices + "]";
+        StringBuffer stringBuffer = new StringBuffer("\nGraph [\n");
+        for(Map.Entry<Vertex, List<Vertex>> entry : adjVertices.entrySet()) {
+            stringBuffer.append("\t[" + entry.getKey().label + "] => [" + entry.getValue().stream().map(v -> v.label).collect(Collectors.joining(",")) + "]\n");
+        }
+        stringBuffer.append("]\n");
+        return stringBuffer.toString();
     }
 }
